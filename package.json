@@ -1,6 +1,6 @@
 {
   "name": "@futpib/docker-compose",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Start docker-compose.yml from TypeScript (inline & typed or from a yaml file)",
   "author": "futpib <futpib@gmail.com>",
   "license": "GPL-3.0-or-later OR MIT",
