@@ -7,10 +7,11 @@ import { Kafka } from 'kafkajs';
 
 import { DockerCompose } from '.';
 
-test('Contains everything from `bip44-constants`', async t => {
+test('up, down, rm', async t => {
 	t.timeout(120_000);
 
 	const kafkaPort = await getPort();
+	const kafkaUiPort = await getPort();
 
 	const dockerCompose = new DockerCompose({
 		file: {
@@ -49,7 +50,7 @@ test('Contains everything from `bip44-constants`', async t => {
 						'zookeeper',
 					],
 					ports: [
-						'8080:8080',
+						`${kafkaUiPort}:8080`,
 					],
 					environment: {
 						KAFKA_CLUSTERS_0_NAME: 'local',
@@ -71,16 +72,11 @@ test('Contains everything from `bip44-constants`', async t => {
 
 	const kafka = new Kafka({
 		brokers: [
-			`localhost:${kafkaPort}`,
+			`127.0.0.1:${kafkaPort}`,
 		],
 	});
 
 	const kafkaAdmin = kafka.admin();
-
-	Object.assign(t.context, {
-		kafka,
-		kafkaAdmin,
-	});
 
 	await promiseRetry(async () => {
 		await kafkaAdmin.connect();

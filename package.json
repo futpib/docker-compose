@@ -50,6 +50,7 @@
     }
   },
   "ava": {
+    "timeout": "2m",
     "ignoredByWatcher": [
       "**/*.fixtures/*.edited.*"
     ],
